@@ -132,8 +132,8 @@ app.post("/articles/:id", function (req, res) {
 
 // Route for deleting an Article's associated Note
 app.delete("/articles/:id", function (req, res) {
-
-    db.Note.deleteOne( { note: id }, function (err, obj) {
+    const articleId = req.params.id
+    db.Note.deleteOne(  {_id: articleId }, function (err, obj) {
         if (err) throw err;
         console.log("1 document deleted");
     });;
