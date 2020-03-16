@@ -61,6 +61,8 @@ app.get("/scrape", function (req, res) {
                 .children("p")
                 .text();
 
+            result.saved = false;
+
             // Create a new Article using the `result` object built from scraping
             db.Article.create(result)
                 .then(function (dbArticle) {
@@ -126,6 +128,17 @@ app.post("/articles/:id", function (req, res) {
             // If an error occurred, send it to the client
             res.json(err);
         });
+});
+
+// Route for deleting an Article's associated Note
+app.delete("/articles/:id", function (req, res) {
+
+    db.Note.deleteOne( { note: id }, function (err, obj) {
+        if (err) throw err;
+        console.log("1 document deleted");
+    });;
+
+res.status(200).end();
 });
 
 
